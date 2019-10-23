@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29324.140
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reed-Muler-Code", "Reed-Muler-Code\Reed-Muler-Code.csproj", "{E7BFF4EF-0C64-41AF-AD3D-27BD09E019AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reed-Muler-Code", "Reed-Muler-Code\Reed-Muler-Code.csproj", "{04801D8A-6B22-4C19-8B5E-162051B75BA2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{79CD458F-3263-44CE-BF0A-3D98E8A539A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +13,19 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E7BFF4EF-0C64-41AF-AD3D-27BD09E019AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E7BFF4EF-0C64-41AF-AD3D-27BD09E019AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E7BFF4EF-0C64-41AF-AD3D-27BD09E019AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E7BFF4EF-0C64-41AF-AD3D-27BD09E019AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04801D8A-6B22-4C19-8B5E-162051B75BA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04801D8A-6B22-4C19-8B5E-162051B75BA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04801D8A-6B22-4C19-8B5E-162051B75BA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04801D8A-6B22-4C19-8B5E-162051B75BA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79CD458F-3263-44CE-BF0A-3D98E8A539A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79CD458F-3263-44CE-BF0A-3D98E8A539A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79CD458F-3263-44CE-BF0A-3D98E8A539A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79CD458F-3263-44CE-BF0A-3D98E8A539A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {88EDEA85-8AAD-43A6-8C8F-2D415887D986}
+		SolutionGuid = {5824F78B-D174-42E1-9DC4-F8E667851AED}
 	EndGlobalSection
 EndGlobal

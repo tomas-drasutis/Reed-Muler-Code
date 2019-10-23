@@ -16,6 +16,5 @@ namespace Reed_Muler_Code
         {
             InitializeComponent();
         }
-
     }
 }
