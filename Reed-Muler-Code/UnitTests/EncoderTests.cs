@@ -1,4 +1,6 @@
 using NUnit.Framework;
+using System;
+using Encoder = Reed_Muler_Code.Encoders.Encoder;
 
 namespace UnitTests
 {
@@ -10,9 +12,35 @@ namespace UnitTests
         }
 
         [Test]
-        public void Encode_Succeeds()
+        public void Encode_M3R2_Succeeds()
         {
-            Assert.Pass();
+            int m = 3;
+            int r = 2;
+            int[] vector = new int[] { 1, 0, 1, 1, 0, 0, 1 };
+            int[] expectedVector = new int[] { 0, 0, 0, 1, 0, 0, 0, 1 };
+            /*int[][] generatorMatrix = new int[][] { new int[] { 1, 1, 1, 1, 1, 1, 1, 1 },
+                                                   new int[] { 1, 1, 1, 1, 0, 0, 0, 0 },
+                                                   new int[] { 1, 1, 0, 0, 1, 1, 0, 0 },
+                                                   new int[] { 1, 0, 1, 0, 1, 0, 1, 0 },
+                                                   new int[] { 1, 1, 0, 0, 0, 0, 0, 0 },
+                                                   new int[] { 1, 0, 1, 0, 0, 0, 0, 0 },
+                                                   new int[] { 1, 0, 0, 0, 1, 0, 0, 0 }};*/
+
+
+            int[] result = Encoder.Encode(m, r, vector);
+
+            PrintVector(expectedVector, "Expected:");
+            PrintVector(result, "Result:");
+            Assert.AreEqual(expectedVector, result);
+        }
+
+        private void PrintVector(int[] vector, string message)
+        {
+            Console.WriteLine(message);
+            for (int i = 0; i < vector.GetLength(0); i++)
+                Console.Write(vector[i]);
+
+            Console.WriteLine();
         }
     }
 }
