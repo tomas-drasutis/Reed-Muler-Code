@@ -10,11 +10,11 @@ namespace Reed_Muler_Code.MatrixMultiplicator
     {
         public static int[] MultiplyByGeneratorMatrix(int[] vector, int[][] generatorMatrix)
         {
-            var dimensions = GetDimensions(generatorMatrix);
+            (int rows, int columns) dimensions = GetDimensions(generatorMatrix);
 
-            var encodedVector = new List<int>(vector.Length);
-            int rows = dimensions.Rows;
-            int columns = dimensions.Columns;
+            int rows = dimensions.rows;
+            int columns = dimensions.columns;
+            List<int> encodedVector = new List<int>(vector.Length);
 
             for (int i = 0; i < columns; i++)
             {
@@ -27,6 +27,6 @@ namespace Reed_Muler_Code.MatrixMultiplicator
             return encodedVector.ToArray();
         }
 
-        private static (int Rows, int Columns) GetDimensions(int[][] matrix) => (Rows: matrix.Length, Columns: matrix[0].Length);
+        private static (int rows, int columns) GetDimensions(int[][] matrix) => (rows: matrix.Length, columns: matrix[0].Length);
     }
 }

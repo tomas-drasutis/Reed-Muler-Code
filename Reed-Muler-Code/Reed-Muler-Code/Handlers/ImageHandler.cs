@@ -6,7 +6,7 @@ namespace Reed_Muler_Code.Handlers
 {
     public class ImageHandler
     {
-        public string ConvertImageToBinaryString(Image image)
+        public static string ConvertImageToBinaryString(Image image)
         {
             ImageConverter converter = new ImageConverter();
             byte[] bytes = (byte[])converter.ConvertTo(image, typeof(byte[]));
@@ -14,12 +14,7 @@ namespace Reed_Muler_Code.Handlers
             return string.Join("", bytes?.Select(x => Convert.ToString(x, 2).PadLeft(8, '0')));
         }
 
-        public (string, string) RemoveBmpHeaderFromBitArray(string binaryString)
-        {
-            return (binaryString.Substring(0, 54 * 8), binaryString.Substring(54 * 8));
-        }
-
-        public Image ConvertBinaryStringToImage(string binaryString)
+        public static Image ConvertBinaryStringToImage(string binaryString)
         {
             int numOfBytes = binaryString.Length / 8;
             byte[] bytes = new byte[numOfBytes];
@@ -27,9 +22,9 @@ namespace Reed_Muler_Code.Handlers
             for (var i = 0; i < numOfBytes; i++)
                 bytes[i] = Convert.ToByte(binaryString.Substring(8 * i, 8), 2);
 
-            Image image = ((new ImageConverter()).ConvertFrom(bytes)) as Image;
-
-            return image;
+            return ((new ImageConverter()).ConvertFrom(bytes)) as Image;
         }
+
+        public static (string, string) RemoveBmpHeaderFromBitArray(string binaryString) => (binaryString.Substring(0, 54 * 8), binaryString.Substring(54 * 8));
     }
 }

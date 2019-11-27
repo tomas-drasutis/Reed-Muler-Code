@@ -9,10 +9,10 @@ namespace Reed_Muler_Code.Extensions
         public static int CountFactorial(this int number)
         {
             int result = 1;
+
             for (int i = 1; i <= number; i++)
-            {
                 result *= i;
-            }
+
             return result;
         }
 
@@ -25,18 +25,20 @@ namespace Reed_Muler_Code.Extensions
         public static int CountCombination(this int m, int r)
         {
             int count = 0;
+
             for (int i = 0; i <= r; i++)
             {
-                var unit = m.CountFactorial();
-                var divider = i.CountFactorial() * (m - i).CountFactorial();
+                int unit = m.CountFactorial();
+                int divider = i.CountFactorial() * (m - i).CountFactorial();
                 count += unit / divider;
             }
+
             return count;
         }
 
         public static string ListToCommaSeparatedString(this List<int> list)
         {
-            var stringList = list.Select(x => x.ToString()).ToList();
+            List<string > stringList = list.Select(x => x.ToString()).ToList();
             return string.Join(", ", stringList);
         }
 

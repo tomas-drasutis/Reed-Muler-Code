@@ -14,13 +14,13 @@ namespace Reed_Muler_Code
         private static ConcurrentDictionary<(int, int, string), int[]> _encodedVectors = new ConcurrentDictionary<(int, int, string), int[]>();
         private static ConcurrentDictionary<(int, int), List<string>> _bytes = new ConcurrentDictionary<(int, int), List<string>>();
 
-        public static void AddGeneratorMatrix(int m, int r, int[][] generatorMatrix) => _generatorMatrices.TryAdd((m, r), generatorMatrix);
+        public static void AddGeneratorMatrix(int rows, int columns, int[][] generatorMatrix) => _generatorMatrices.TryAdd((rows, columns), generatorMatrix);
         public static void AddEncodedVector(int m, int r, int[] vector, int[] encodedVector) => _encodedVectors.TryAdd((m, r, vector.ArrayToString()), encodedVector);
         public static void AddBytesList(int lengthOfBytesList, int lengthOfByte, List<string> bytesList) => _bytes.TryAdd((lengthOfBytesList, lengthOfByte), bytesList);
 
-        public static int[][] GetGeneratorMatrix(int m, int r)
+        public static int[][] GetGeneratorMatrix(int rows, int columns)
         {
-            if (_generatorMatrices.TryGetValue((m, r), out var generatorMatrix))
+            if (_generatorMatrices.TryGetValue((rows, columns), out var generatorMatrix))
                 return generatorMatrix;
 
             return null;
@@ -39,6 +39,5 @@ namespace Reed_Muler_Code
 
             return null;
         }
-
     }
 }

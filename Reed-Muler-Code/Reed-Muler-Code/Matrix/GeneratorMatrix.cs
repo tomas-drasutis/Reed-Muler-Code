@@ -7,85 +7,71 @@ namespace Reed_Muler_Code.Matrix
 {
     public class GeneratorMatrix
     {
-        private int _columns;
-        private int _rows;
-        private List<List<int>> _combinations;
-        public int[][] Matrix;
-        private int _m;
-        private int _r;
-
-        public GeneratorMatrix(int m, int r)
-        {
-            _m = m;
-            _r = r;
-            _combinations = new List<List<int>>();
-            GenerateMatrix();
-        }
-
         /// <summary>
         /// Generuoja matricą
         /// </summary>
         /// <returns></returns>
-        public int[][] GenerateMatrix()
+        public static int[][] GenerateMatrix(int m, int r)
         {
-            int[][] generatorMatrix = Cache.GetGeneratorMatrix(_m, _r);
+            var n = (int)Math.Pow(2, m);
+            int rows = m.CountCombination(r);
+            int columns = n;
+
+            int[][] generatorMatrix = Cache.GetGeneratorMatrix(rows, columns);
 
             if (generatorMatrix != null)
                 return generatorMatrix;
 
-            var n = (int)Math.Pow(2, _m);
-            _rows = _m.CountCombination(_r);
-            _columns = n;
-            Matrix = new int[_rows][];
-            var bytes = BytesCounter.GetBytes(n, _m);
+            generatorMatrix = new int[rows][];
+            List<List<int>> combinations = new List<List<int>>();
 
-            GetCombinations(bytes);
+            List<string> bytes = BytesCounter.GetBytes(n, m);
 
-            for (int i = 0; i < _rows; i++)
+            combinations = GetCombinations(bytes, columns, r);
+
+            for (int i = 0; i < rows; i++)
             {
-                Matrix[i] = new int[_columns];
-                for (int j = 0; j < _columns; j++)
+                generatorMatrix[i] = new int[columns];
+                for (int j = 0; j < columns; j++)
                 {
                     if (i == 0)
-                    {
-                        Matrix[i][j] = 1;
-                    }
+                        generatorMatrix[i][j] = 1;
                     else
                     {
-                        if (_combinations[i].Count == 1)
+                        if (combinations[i].Count == 1)
                         {
-                            var index = _combinations[i].FirstOrDefault();
+                            int index = combinations[i].FirstOrDefault();
 
                             if (bytes[j].ElementAtOrDefault(index - 1) == '0')
-                                Matrix[index][j] = 1;
+                                generatorMatrix[index][j] = 1;
                             else
-                                Matrix[index][j] = 0;
+                                generatorMatrix[index][j] = 0;
                         }
                         else
                         {
-                            var multiplication = 1;
+                            int multiplication = 1;
 
-                            foreach (var index in _combinations[i])
-                                multiplication *= Matrix[index][j];
+                            foreach (int index in combinations[i])
+                                multiplication *= generatorMatrix[index][j];
 
-                            Matrix[i][j] = multiplication;
+                            generatorMatrix[i][j] = multiplication;
                         }
                     }
                 }
             }
 
-            Cache.AddGeneratorMatrix(_m, _r, Matrix);
-            return Matrix;
+            Cache.AddGeneratorMatrix(rows, columns, generatorMatrix);
+            return generatorMatrix;
         }
 
         //Gauna visus derinius iš baitų(pvz, 000, 001, 010 ir t.t.).   
-        private void GetCombinations(List<string> bytes)
+        private static List<List<int>> GetCombinations(List<string> bytes, int columns, int r)
         {
-            var unorderedCombinations = new List<List<int>>();
-            for (int j = 0; j < _columns; j++)
+            List<List<int>> unorderedCombinations = new List<List<int>>();
+            for (int j = 0; j < columns; j++)
             {
-                var list = new List<int>();
-                var combination = bytes[j].Select((character, index) => new { index, character })
+                List<int> list = new List<int>();
+                List<int> combination = bytes[j].Select((character, index) => new { index, character })
                     .Where(t => t.character == '1')
                     .Select(t => t.index + 1)
                     .ToList();
@@ -93,12 +79,11 @@ namespace Reed_Muler_Code.Matrix
                 if (combination.Count == 0)
                     combination.Add(0);
 
-                if (combination.Count <= _r)
+                if (combination.Count <= r)
                     unorderedCombinations.Add(combination);
             }
 
-            var orderedCombinations = unorderedCombinations.OrderBy(x => x.Count).ToList();
-            _combinations = OrderCombinations(orderedCombinations);
+            return OrderCombinations(unorderedCombinations.OrderBy(x => x.Count).ToList());
         }
 
 
@@ -107,19 +92,19 @@ namespace Reed_Muler_Code.Matrix
         /// </summary>
         /// <param name="orderedCombinations"></param>
         /// <returns></returns>
-        private List<List<int>> OrderCombinations(List<List<int>> orderedCombinations)
+        private static List<List<int>> OrderCombinations(List<List<int>> orderedCombinations)
         {
-            var combinationsWithKeys = new Dictionary<string, List<int>>();
+            Dictionary<string, List<int>> combinationsWithKeys = new Dictionary<string, List<int>>();
 
-            var listsLengths = new List<int>();
+            List<int> listsLengths = new List<int>();
 
-            var maxCount = orderedCombinations.Max(x => x.Count);
-            for (var i = 0; i <= maxCount; i++)
+            int maxCount = orderedCombinations.Max(x => x.Count);
+            for (int i = 0; i <= maxCount; i++)
             {
-                var currentListOfCombinations = orderedCombinations.Where(x => x.Count == i).ToList();
-                foreach (var combination in currentListOfCombinations)
+                List<List<int>> currentListOfCombinations = orderedCombinations.Where(x => x.Count == i).ToList();
+                foreach (List<int> combination in currentListOfCombinations)
                 {
-                    var key = combination
+                    string key = combination
                         .Select(number => number.ToString())
                         .Aggregate((a, b) => a + b).PadLeft(maxCount, '0');
 
@@ -128,8 +113,7 @@ namespace Reed_Muler_Code.Matrix
                 }
             }
 
-            var orderedCombinationsWithKeys = combinationsWithKeys.OrderBy(x => x.Key);
-            return orderedCombinationsWithKeys.Select(x => x.Value).ToList();
+            return combinationsWithKeys.OrderBy(x => x.Key).Select(y => y.Value).ToList();
         }
     }
 }

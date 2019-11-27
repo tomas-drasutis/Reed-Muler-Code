@@ -23,8 +23,9 @@ namespace Reed_Muler_Code.Encoders
             int[] encodedBits = Cache.GetEncodedVector(vector.M, vector.R, vector.Bits);
 
             if (encodedBits == null)
-                encodedBits = MatrixMultiplicator.MatrixMultiplicator.MultiplyByGeneratorMatrix(vector.Bits, new GeneratorMatrix(vector.M, vector.R).GenerateMatrix());
+                encodedBits = MatrixMultiplicator.MatrixMultiplicator.MultiplyByGeneratorMatrix(vector.Bits, GeneratorMatrix.GenerateMatrix(vector.M, vector.R));
 
+            Cache.AddEncodedVector(vector.M, vector.R, vector.Bits, encodedBits);
             return new Vector(vector.M, vector.R, encodedBits);
         }
     }

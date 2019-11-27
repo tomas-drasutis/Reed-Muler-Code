@@ -24,11 +24,7 @@ namespace Reed_Muler_Code.Extensions
             bytes = new List<string>();
 
             for (int i = 0; i < lengthOfBytesList; i++)
-            {
-                var binary = Convert.ToString(i, 2).PadLeft(lengthOfByte, '0');
-                Console.WriteLine("binary: " + binary);
-                bytes.Add(binary);
-            }
+                bytes.Add(Convert.ToString(i, 2).PadLeft(lengthOfByte, '0'));
 
             Cache.AddBytesList(lengthOfBytesList, lengthOfByte, bytes);
             return bytes;

@@ -27,11 +27,11 @@ namespace UnitTests
                                                    new int[] { 1, 0, 0, 0, 1, 0, 0, 0 }};*/
 
 
-            int[] result = Encoder.Encode(m, r, vector);
+            var result = Encoder.Encode(new Reed_Muler_Code.Vector(m, r, vector));
 
             PrintVector(expectedVector, "Expected:");
-            PrintVector(result, "Result:");
-            Assert.AreEqual(expectedVector, result);
+            PrintVector(result.Bits, "Result:");
+            Assert.AreEqual(expectedVector, result.Bits);
         }
 
         private void PrintVector(int[] vector, string message)

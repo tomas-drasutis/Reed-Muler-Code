@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Reed_Muler_Code.Channels
 {
-    public static class Channel
+    public class Channel
     {
         private static readonly Random _random = new Random();
 
@@ -23,7 +23,7 @@ namespace Reed_Muler_Code.Channels
         {
             StringBuilder stringBuilder = new StringBuilder();
 
-            foreach (var character in message)
+            foreach (char character in message)
                 stringBuilder.Append(_random.Next(0, 100) < mistakeProbability * 100
                     ? (1 - int.Parse(character.ToString())).ToString()
                     : character.ToString());
@@ -39,9 +39,9 @@ namespace Reed_Muler_Code.Channels
         /// <returns>Error positions</returns>
         public static List<int> GetErrorPositions(Vector vector, Vector vectorAfterChannel)
         {
-            var positions = new List<int>();
+            List<int> positions = new List<int>();
 
-            for (var i = 0; i < vector.Bits.Length; i++)
+            for (int i = 0; i < vector.Bits.Length; i++)
                 if (vector.Bits[i] != vectorAfterChannel.Bits[i])
                     positions.Add(i + 1);
 

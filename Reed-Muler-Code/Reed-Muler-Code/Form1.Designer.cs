@@ -92,6 +92,10 @@
             this.label22 = new System.Windows.Forms.Label();
             this.imageUploadButton = new System.Windows.Forms.Button();
             this.label23 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.validateButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -300,6 +304,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.IndianRed;
+            this.panel1.Controls.Add(this.validateButton);
             this.panel1.Controls.Add(this.errorTextBox);
             this.panel1.Controls.Add(this.errorRateBox);
             this.panel1.Controls.Add(this.label7);
@@ -341,7 +346,7 @@
             // 
             // decodeButton
             // 
-            this.decodeButton.Location = new System.Drawing.Point(6, 146);
+            this.decodeButton.Location = new System.Drawing.Point(6, 168);
             this.decodeButton.Name = "decodeButton";
             this.decodeButton.Size = new System.Drawing.Size(162, 23);
             this.decodeButton.TabIndex = 6;
@@ -351,7 +356,7 @@
             // 
             // channelButton
             // 
-            this.channelButton.Location = new System.Drawing.Point(6, 117);
+            this.channelButton.Location = new System.Drawing.Point(6, 139);
             this.channelButton.Name = "channelButton";
             this.channelButton.Size = new System.Drawing.Size(162, 23);
             this.channelButton.TabIndex = 5;
@@ -384,7 +389,7 @@
             // 
             // encodingButton
             // 
-            this.encodingButton.Location = new System.Drawing.Point(6, 88);
+            this.encodingButton.Location = new System.Drawing.Point(6, 110);
             this.encodingButton.Name = "encodingButton";
             this.encodingButton.Size = new System.Drawing.Size(162, 23);
             this.encodingButton.TabIndex = 4;
@@ -579,6 +584,9 @@
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.NavajoWhite;
+            this.tabPage3.Controls.Add(this.label16);
+            this.tabPage3.Controls.Add(this.label15);
+            this.tabPage3.Controls.Add(this.label14);
             this.tabPage3.Controls.Add(this.passedImagePictureBox);
             this.tabPage3.Controls.Add(this.encodedDecodedImagePictureBox);
             this.tabPage3.Controls.Add(this.uploadedImagePictureBox);
@@ -602,7 +610,7 @@
             // encodedDecodedImagePictureBox
             // 
             this.encodedDecodedImagePictureBox.BackColor = System.Drawing.Color.OldLace;
-            this.encodedDecodedImagePictureBox.Location = new System.Drawing.Point(517, 13);
+            this.encodedDecodedImagePictureBox.Location = new System.Drawing.Point(244, 224);
             this.encodedDecodedImagePictureBox.Name = "encodedDecodedImagePictureBox";
             this.encodedDecodedImagePictureBox.Size = new System.Drawing.Size(202, 226);
             this.encodedDecodedImagePictureBox.TabIndex = 11;
@@ -611,7 +619,7 @@
             // uploadedImagePictureBox
             // 
             this.uploadedImagePictureBox.BackColor = System.Drawing.Color.OldLace;
-            this.uploadedImagePictureBox.Location = new System.Drawing.Point(288, 224);
+            this.uploadedImagePictureBox.Location = new System.Drawing.Point(498, 29);
             this.uploadedImagePictureBox.Name = "uploadedImagePictureBox";
             this.uploadedImagePictureBox.Size = new System.Drawing.Size(202, 226);
             this.uploadedImagePictureBox.TabIndex = 10;
@@ -710,6 +718,43 @@
             this.label23.TabIndex = 3;
             this.label23.Text = "M:";
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(293, 199);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(81, 13);
+            this.label14.TabIndex = 13;
+            this.label14.Text = "Encoded image";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(801, 199);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(120, 13);
+            this.label15.TabIndex = 14;
+            this.label15.Text = "Image without encoding";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(573, 6);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(36, 13);
+            this.label16.TabIndex = 15;
+            this.label16.Text = "Image";
+            // 
+            // validateButton
+            // 
+            this.validateButton.Location = new System.Drawing.Point(6, 81);
+            this.validateButton.Name = "validateButton";
+            this.validateButton.Size = new System.Drawing.Size(162, 23);
+            this.validateButton.TabIndex = 10;
+            this.validateButton.Text = "Validate";
+            this.validateButton.UseVisualStyleBackColor = true;
+            this.validateButton.Click += new System.EventHandler(this.validateButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -739,6 +784,7 @@
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.passedImagePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.encodedDecodedImagePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.uploadedImagePictureBox)).EndInit();
@@ -814,6 +860,10 @@
         private System.Windows.Forms.PictureBox encodedDecodedImagePictureBox;
         private System.Windows.Forms.PictureBox uploadedImagePictureBox;
         private System.Windows.Forms.Button imageUploadButton;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button validateButton;
     }
 }
 

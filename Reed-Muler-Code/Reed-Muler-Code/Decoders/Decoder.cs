@@ -12,9 +12,8 @@ namespace Reed_Muler_Code.Decoders
             int m = vector.M;
             int r = vector.R;
             List<int> encodedVector = vector.Bits.ToList();
-            int[][] generatorMatrix = Cache.GetGeneratorMatrix(vector.M, vector.R);
 
-            var decodedVector = GetVotes(encodedVector, m, r, generatorMatrix);
+            List<int> decodedVector = GetVotes(encodedVector, m, r);
 
             decodedVector.Reverse();
 
@@ -27,7 +26,7 @@ namespace Reed_Muler_Code.Decoders
         /// </summary>
         /// <param name="encodedVector"></param>
         /// <returns></returns>
-        private static List<int> GetVotes(List<int> encodedVector, int m, int r, int[][] generatorMatrix)
+        private static List<int> GetVotes(List<int> encodedVector, int m, int r)
         {
             int votesCounted = 0;
             List<string> bytes;
@@ -38,6 +37,7 @@ namespace Reed_Muler_Code.Decoders
             int n = (int)Math.Pow(2, m);
             int rows = m.CountCombination(r);
             bytes = BytesCounter.GetBytes(n, m);
+            int[][] generatorMatrix = Cache.GetGeneratorMatrix(rows, n);
 
             for (int i = r; i >= 0; i--)
             {
@@ -53,7 +53,8 @@ namespace Reed_Muler_Code.Decoders
                         wt.Insert(h, 1);
                         w.Add(wt);
                     }
-                    CalculateDominantVote(n, encodedVector, w, finalVotes);
+
+                    CalculateDominantVote(encodedVector, w, finalVotes);
                 }
 
                 else
@@ -63,13 +64,13 @@ namespace Reed_Muler_Code.Decoders
 
                     var tList = BytesCounter.GetBytes((int)Math.Pow(2, positionsMissingCount), positionsMissingCount);
 
-                    foreach (var missingPosition in missingPositionsList)
+                    foreach (List<int> missingPosition in missingPositionsList)
                     {
                         w = new List<List<int>>();
-                        foreach (var t in tList)
+                        foreach (string t in tList)
                         {
                             wt = new List<int>();
-                            foreach (var _byte in bytes)
+                            foreach (string _byte in bytes)
                             {
                                 bool value = false;
                                 for (int pos = 0; pos < positionsMissingCount; pos++)
@@ -86,7 +87,7 @@ namespace Reed_Muler_Code.Decoders
                             }
                             w.Add(wt);
                         }
-                        CalculateDominantVote(n, encodedVector, w, finalVotes);
+                        CalculateDominantVote(encodedVector, w, finalVotes);
                     }
 
                     if (finalVotes.Count != rows)
@@ -107,7 +108,7 @@ namespace Reed_Muler_Code.Decoders
         /// </summary>
         /// <param name="n"></param>
         /// <param name="encodedVector"></param>
-        private static void CalculateDominantVote(int n, List<int> encodedVector, List<List<int>> w, List<int> finalVotes)
+        private static void CalculateDominantVote(List<int> encodedVector, List<List<int>> w, List<int> finalVotes)
         {
             int vote = 0;
             var votes = new List<int>();
@@ -118,9 +119,10 @@ namespace Reed_Muler_Code.Decoders
                 vote = wtPack.Select((x, i) => x * encodedVector[i]).Aggregate((a, b) => a + b);
                 votes.Add(vote % 2);
             }
+
             var mostOccuredVote = votes.GroupBy(i => i)
-                    .OrderByDescending(grp => grp.Count())
-                    .Select(grp => grp.Key).First();
+                    .OrderByDescending(group => group.Count())
+                    .Select(group => group.Key).First();
 
             finalVotes.Add(mostOccuredVote);
         }
@@ -135,14 +137,14 @@ namespace Reed_Muler_Code.Decoders
         /// <returns></returns>
         public static (int, List<int>) SubtractFromMainVector(int k, int n, List<int> encodedVector, int[][] generatorMatrix, List<int> finalVotes, int votesCounted)
         {
-            var vectorSum = new List<int>(new int[n]);
+            List<int> vectorSum = new List<int>(new int[n]);
             int votesCount = finalVotes.Count;
             int rows = k - votesCount;
 
             for (int row = rows; row < k - votesCounted; row++)
             {
-                var index = votesCount - (row - rows) - 1;
-                var newVector = new List<int>();
+                int index = votesCount - (row - rows) - 1;
+                List<int> newVector = new List<int>();
                 for (int column = 0; column < n; column++)
                 {
                     int bit = generatorMatrix[row][column] * finalVotes[index];
@@ -152,7 +154,7 @@ namespace Reed_Muler_Code.Decoders
                 vectorSum = AddVector(vectorSum, newVector);
             }
 
-            var vectorToReturn = SubtractVector(encodedVector, vectorSum);
+            List<int> vectorToReturn = SubtractVector(encodedVector, vectorSum);
 
             votesCounted = finalVotes.Count;
             return (votesCounted, vectorToReturn);
@@ -166,10 +168,8 @@ namespace Reed_Muler_Code.Decoders
         /// <returns></returns>
         private static List<int> SubtractVector(List<int> minuend, List<int> subtrahend)
         {
-            var difference = minuend.Select((m, i) => m - subtrahend[i]).ToList();
-            var result = difference.Select(x => Convert.ToInt32(x < 0 || x == 1)).ToList();
-
-            return result;
+            List<int> difference = minuend.Select((m, i) => m - subtrahend[i]).ToList();
+            return difference.Select(x => Convert.ToInt32(x < 0 || x == 1)).ToList();
         }
 
 
@@ -192,7 +192,7 @@ namespace Reed_Muler_Code.Decoders
 
             foreach (string _byte in bytes)
             {
-                var zeros = _byte.Where(x => x != '1').Count();
+                int zeros = _byte.Where(x => x != '1').Count();
 
                 if (zeros == numberOfMissingPositions)
                 {

@@ -24,6 +24,7 @@ namespace Reed_Muler_Code
 
         private static Vector _encodedVector;
         private static Vector _vectorFromChannel;
+        private static Bitmap _picture;
         private static VectorService _vectorService = new VectorService();
         private static StringService _stringService = new StringService();
         private static ImageService _imageService = new ImageService();
@@ -35,17 +36,8 @@ namespace Reed_Muler_Code
 
         private void encodingButton_Click(object sender, EventArgs e)
         {
-            if (!Regex.IsMatch(RtextBox.Text, "^[0-9]{1,}$") || !Regex.IsMatch(MtextBox.Text, "^[0-9]{1,}$"))
-            {
-                errorTextBox.Text = $"M and R have to be numeric!";
+            if (!Validate(RtextBox, MtextBox, errorRateBox, errorTextBox))
                 return;
-            }
-
-            if (!Regex.IsMatch(vectorTextBox.Text, "^[0-1]{1,}$"))
-            {
-                errorTextBox.Text = $"Vector should contain only binary values: 0s and 1s";
-                return;
-            }
 
             int r = int.Parse(RtextBox.Text);
             int m = int.Parse(MtextBox.Text);
@@ -64,20 +56,14 @@ namespace Reed_Muler_Code
 
         private void channelButton_Click(object sender, EventArgs e)
         {
-            if (!Regex.IsMatch(RtextBox.Text, "^[0-9]{1,}$") || !Regex.IsMatch(MtextBox.Text, "^[0-9]{1,}$"))
+            if (_encodedVector == null)
             {
-                errorTextBox.Text = $"M and R have to be numeric!";
+                errorTextBox.Text = "No encoded vector could be found";
                 return;
             }
 
-            int r = int.Parse(RtextBox.Text);
-            int m = int.Parse(MtextBox.Text);
-
-            if (!Regex.IsMatch(errorRateBox.Text.Replace(',', '.'), "^(0)$|^([0].[0-9]{1,})|^(1)$|^(1.(0){1,})$"))
-            {
-                errorTextBox.Text = "Error rate should be a value between 0.0 and 1.0";
+            if (!Validate(RtextBox, MtextBox, errorRateBox, errorTextBox))
                 return;
-            }
 
             List<int> errors;
             (_vectorFromChannel, errors) = _vectorService.SendThroughChannel(_encodedVector, double.Parse(errorRateBox.Text.Replace(',', '.')));
@@ -90,9 +76,9 @@ namespace Reed_Muler_Code
 
         private void decodeButton_Click(object sender, EventArgs e)
         {
-            if (_encodedVector == null)
+            if (_vectorFromChannel == null)
             {
-                errorTextBox.Text = "No encoded vector could be found";
+                errorTextBox.Text = "No vector passed through channel could be found";
                 return;
             }
 
@@ -102,26 +88,21 @@ namespace Reed_Muler_Code
 
         private void stringEncode_Click(object sender, EventArgs e)
         {
-            if (!Regex.IsMatch(stringRbox.Text, "^[0-9]{1,}$") || !Regex.IsMatch(stringMbox.Text, "^[0-9]{1,}$"))
-            {
-                errorTextBox.Text = $"M and R have to be numeric!";
+            if (!Validate(stringRbox, stringMbox, stringErrorRateBox, stringErrorBox))
                 return;
-            }
-            if (!Regex.IsMatch(stringErrorRateBox.Text.Replace(',', '.'), "^(0)$|^([0].[0-9]{1,})|^(1)$|^(1.(0){1,})$"))
-            {
-                errorTextBox.Text = "Error rate should be a value between 0.0 and 1.0";
-                return;
-            }
-            if (!double.TryParse(stringErrorRateBox.Text, out var errorRate))
-            {
-                MessageBox.Show("Error rate must be a number.");
-                return;
-            }
+            double.TryParse(stringErrorRateBox.Text, out var errorRate);
 
             int r = int.Parse(stringRbox.Text);
             int m = int.Parse(stringMbox.Text);
             string message = stringBox.Text;
 
+            if(message == "")
+            {
+                stringErrorBox.Text = "Please provide a string.";
+                return;
+            }
+
+            stringErrorBox.Text = "In progress...";
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
@@ -134,49 +115,83 @@ namespace Reed_Muler_Code
 
         private void imageUploadButton_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog { Filter = "BMP|*.bmp" };
-            Bitmap pictureBitmap = null;
+            OpenFileDialog openFileDialog = new OpenFileDialog { Filter = "BMP|*.bmp" };
 
-            if (ofd.ShowDialog() == DialogResult.OK)
-                pictureBitmap = new Bitmap(ofd.FileName);
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+                _picture = new Bitmap(openFileDialog.FileName);
 
             uploadedImagePictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            uploadedImagePictureBox.Image = pictureBitmap;
+            uploadedImagePictureBox.Image = _picture;
         }
 
         private void imageChannelButton_Click(object sender, EventArgs e)
         {
-            if (!Regex.IsMatch(imageRbox.Text, "^[0-9]{1,}$") || !Regex.IsMatch(imageMbox.Text, "^[0-9]{1,}$"))
+            if(_picture == null)
             {
-                imageErrorBox.Text = $"M and R have to be numeric!";
+                imageErrorBox.Text = "Please provide a bitmap image.";
                 return;
             }
-            if (!Regex.IsMatch(imageErrorRateBox.Text.Replace(',', '.'), "^(0)$|^([0].[0-9]{1,})|^(1)$|^(1.(0){1,})$"))
-            {
-                imageErrorBox.Text = "Error rate should be a value between 0.0 and 1.0";
+
+            if (!Validate(imageRbox, imageMbox, imageErrorRateBox, imageErrorBox))
                 return;
-            }
-            if (!double.TryParse(imageErrorRateBox.Text, out var errorRate))
-            {
-                imageErrorBox.Text = "Error rate must be a number.";
-                return;
-            }
+            double.TryParse(imageErrorRateBox.Text, out var errorRate);
 
             int r = int.Parse(imageRbox.Text);
             int m = int.Parse(imageMbox.Text);
-            Bitmap image = uploadedImagePictureBox.Image as Bitmap;
 
+            imageErrorBox.Text = "In progress...";
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
             passedImagePictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            passedImagePictureBox.Image = _imageService.HandlePicture(image, errorRate);
+            passedImagePictureBox.Image = _imageService.HandlePicture(_picture, errorRate);
             encodedDecodedImagePictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            encodedDecodedImagePictureBox.Image = _imageService.HandlePictureWithEncoding(image, m, r, errorRate);
+            encodedDecodedImagePictureBox.Image = _imageService.HandlePictureWithEncoding(_picture, m, r, errorRate);
 
             stopwatch.Stop();
             imageErrorBox.Text = $"Elapsed time: {stopwatch.Elapsed}";
         }
 
+        private void validateButton_Click(object sender, EventArgs e)
+        {
+            if (!Validate(RtextBox, MtextBox, errorRateBox, errorTextBox))
+                return;
+
+            int r = int.Parse(RtextBox.Text);
+            int m = int.Parse(MtextBox.Text);
+            int vectorLength = CountVectorLength(m, r);
+
+            errorTextBox.Text = $"Vector length should be: {vectorLength} symbols long";
+        }
+
+        private bool Validate(TextBox rBox, TextBox mBox, TextBox errorRateBox, RichTextBox errorBox)
+        {
+            if (!Regex.IsMatch(rBox.Text, "^[1-9]{1,}$") || !Regex.IsMatch(mBox.Text, "^[1-9]{1,}$"))
+            {
+                errorBox.Text = $"M and R have to be numeric and more than 0!";
+                return false;
+            }
+
+            int r = int.Parse(rBox.Text);
+            int m = int.Parse(mBox.Text);
+
+            if (r > m)
+            {
+                errorBox.Text = $"R and M should be: R <= M";
+                return false;
+            }
+            if (!Regex.IsMatch(errorRateBox.Text.Replace(',', '.'), "^(0)$|^([0].[0-9]{1,})|^(1)$|^(1.(0){1,})$"))
+            {
+                errorBox.Text = "Error rate should be a value between 0.0 and 1.0";
+                return false;
+            }
+            if (!double.TryParse(errorRateBox.Text, out var errorRate))
+            {
+                errorBox.Text = "Error rate must be a number.";
+                return false;
+            }
+
+            return true;
+        }
     }
 }

@@ -41,9 +41,6 @@ namespace Reed_Muler_Code.Services
         /// </summary>
         /// <param name="vector">Vector to decode</param>
         /// <returns>Decoded vector</returns>
-        public Vector DecodeVector(Vector vector)
-        {
-            return Decoder.Decode(vector);
-        }
+        public Vector DecodeVector(Vector vector) => Decoder.Decode(vector);
     }
 }

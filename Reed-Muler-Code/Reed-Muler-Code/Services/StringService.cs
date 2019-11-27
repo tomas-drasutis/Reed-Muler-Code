@@ -12,28 +12,28 @@ namespace Reed_Muler_Code.Services
 {
     public class StringService
     {
-        private readonly StringHandler _stringHandler = new StringHandler();
-
         public string HandleStringWithEncoding(string message, int m, int r, double errorProbability)
         {
-            string binaryString = _stringHandler.ConvertStringToBinary(message);
-            List<Vector> vectorsList = _stringHandler.ConvertBinaryStringToVectors(binaryString, m, r, out var appendedBits);
+            string binaryString = StringHandler.ConvertStringToBinary(message);
+            (List<Vector>, int) resultTuple = StringHandler.ConvertBinaryStringToVectors(binaryString, m, r);
+            List<Vector> vectorsList = resultTuple.Item1;
+            int appendedBits = resultTuple.Item2;
 
             List<Vector> encodedVectors = vectorsList.Select(vector => Encoder.Encode(vector)).ToList();
             List<Vector> encodedPassedVectors = encodedVectors.Select(vector => Channel.SendThroughNoisyChannel(vector, errorProbability)).ToList();
             List<Vector> decodedVectors = encodedPassedVectors.Select(vector => Decoder.Decode(vector)).ToList();
 
-            string decodedString = _stringHandler.ConvertVectorsToBinaryString(decodedVectors, appendedBits);
+            string decodedString = StringHandler.ConvertVectorsToBinaryString(decodedVectors, appendedBits);
 
-            return _stringHandler.ConvertBinaryToString(decodedString);
+            return StringHandler.ConvertBinaryToString(decodedString);
         }
 
         public string HandleString(string message, double errorProbability)
         {
-            string binaryString = _stringHandler.ConvertStringToBinary(message);
+            string binaryString = StringHandler.ConvertStringToBinary(message);
             string passedString = Channel.SendThroughNoisyChannel(binaryString, errorProbability);
 
-            return _stringHandler.ConvertBinaryToString(passedString);
+            return StringHandler.ConvertBinaryToString(passedString);
         }
     }
 }

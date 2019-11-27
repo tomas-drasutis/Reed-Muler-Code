@@ -31,45 +31,47 @@ namespace UnitTests
                                                    new int[] { 1, 1, 0, 0, 0, 0, 0, 0 },
                                                    new int[] { 1, 0, 1, 0, 0, 0, 0, 0 },
                                                    new int[] { 1, 0, 0, 0, 1, 0, 0, 0 }};
+
             Cache.AddGeneratorMatrix(m, r, generatorMatrix);
+            Vector noisyVector = Channel.SendThroughNoisyChannel(new Vector(m, r, encodedVector.ArrayToString()), mistakeProbability);
 
-            Channel channel = new Channel();
-            Vector noisyVector = channel.SendThroughNoisyChannel(new Vector(m, r, encodedVector.ArrayToString()), mistakeProbability);
-
-            int[] result = Decoder.Decode(noisyVector).ToArray();
+            var result = Decoder.Decode(noisyVector);
 
             PrintVector(expectedVector, "Expected:");
-            PrintVector(result, "Result:");
-            Assert.AreEqual(expectedVector, result);
+            PrintVector(result.Bits, "Result:");
+            Assert.AreEqual(expectedVector, result.Bits);
         }
 
         [Test]
-        public void Decode_M3R2_1E_Succeeds()
+        public void Decode_M4R2_1E_Succeeds()
         {
-            int m = 3;
+            int m = 4;
             int r = 2;
-            int[] encodedVector = new int[] { 0, 0, 0, 1, 0, 0, 0, 1 };
-            int[] channelVector = new int[] { 0, 1, 0, 1, 0, 0, 1, 1 };
-            int[] expectedVector = new int[] { 1, 0, 1, 1, 0, 0, 1 };
-            int[][] generatorMatrix = new int[][] { new int[] { 1, 1, 1, 1, 1, 1, 1, 1 },
-                                                   new int[] { 1, 1, 1, 1, 0, 0, 0, 0 },
-                                                   new int[] { 1, 1, 0, 0, 1, 1, 0, 0 },
-                                                   new int[] { 1, 0, 1, 0, 1, 0, 1, 0 },
-                                                   new int[] { 1, 1, 0, 0, 0, 0, 0, 0 },
-                                                   new int[] { 1, 0, 1, 0, 0, 0, 0, 0 },
-                                                   new int[] { 1, 0, 0, 0, 1, 0, 0, 0 }};
-            Cache.AddGeneratorMatrix(m, r, generatorMatrix);
+            int[] encodedVector = new int[] { 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1 };
+            int[] channelVector = new int[] { 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1 };
+            int[] expectedVector = new int[] { 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1 };
+            int[][] generatorMatrix = new int[][] { new int[] {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 },
+                                                   new int[] { 1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0 },
+                                                   new int[] { 1,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0 },
+                                                   new int[] { 1,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0 },
+                                                   new int[] { 1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0 },
+                                                   new int[] { 1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0 },
+                                                   new int[] { 1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0 },
+                                                   new int[] { 1,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0 },
+                                                   new int[] { 1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0 },
+                                                   new int[] { 1,0,1,0,0,0,0,0,1,0,1,0,0,0,0,0 },
+                                                   new int[] { 1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0 }};
 
-            Channel channel = new Channel();
+            Cache.AddGeneratorMatrix(m, r, generatorMatrix);
             Vector noisyVector = new Vector(m, r, channelVector.ArrayToString());
 
-            int[] result = Decoder.Decode(noisyVector).ToArray();
+            var result = Decoder.Decode(noisyVector);
 
             PrintVector(noisyVector.Bits, "Noisy Vector:");
             PrintVector(expectedVector, "Expected:");
-            PrintVector(result, "Result:");
-            Console.WriteLine("Error count: " + channel.GetErrorPositions(new Vector(m, r, encodedVector.ArrayToString()), noisyVector).Count);
-            Assert.AreEqual(expectedVector, result);
+            PrintVector(result.Bits, "Result:");
+            Console.WriteLine("Error count: " + Channel.GetErrorPositions(new Vector(m, r, encodedVector.ArrayToString()), noisyVector).Count);
+            Assert.AreEqual(expectedVector, result.Bits);
         }
 
         private void PrintVector(int[] vector, string message)
