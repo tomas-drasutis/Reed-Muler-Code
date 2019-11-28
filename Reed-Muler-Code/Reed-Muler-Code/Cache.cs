@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace Reed_Muler_Code
 {
+    /// <summary>
+    /// Cache klase, kurioje issaugojami jau sugeneruoti baitu sarasai, uzkoduoti vektoriai bei generuojancios matricos
+    /// Jas galima prideti bei pasiekti naudojant viesus metodus
+    /// </summary>
     public static class Cache
     {
         private static ConcurrentDictionary<(int, int), int[][]> _generatorMatrices = new ConcurrentDictionary<(int, int), int[][]>();

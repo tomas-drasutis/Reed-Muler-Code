@@ -34,6 +34,11 @@ namespace Reed_Muler_Code
 
         }
 
+        /// <summary>
+        /// Paspaudus Encoding mygtuka vektoriaus skyriuje kreipiamasi i uzkodavimo funkcijas. Gavus rezultata jis pateikiamas lange
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void encodingButton_Click(object sender, EventArgs e)
         {
             if (!Validate(RtextBox, MtextBox, errorRateBox, errorTextBox))
@@ -50,10 +55,15 @@ namespace Reed_Muler_Code
                 return;
             }
 
-            _encodedVector = _vectorService.EncodeVector(vectorBits, r, m);
+            _encodedVector = _vectorService.EncodeVector(new Vector(m, r, vectorBits));
             encodedVectorTextBox.Text = _encodedVector.ToString();
         }
 
+        /// <summary>
+        /// Paspaudus Channel mygtuka vektoriaus lange uzkoduotas vektorius siunciamas per kanala. Gavus rezultata jis pateikiamas lange
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void channelButton_Click(object sender, EventArgs e)
         {
             if (_encodedVector == null)
@@ -74,6 +84,12 @@ namespace Reed_Muler_Code
             evFromChannelBox.Text = _vectorFromChannel.ToString();
         }
 
+        /// <summary>
+        /// Paspaudus Decode mygtuka vektoriaus lange si funkcija siuncia uzkoduota ir per kanala persiusta vektoriu
+        /// i dekodavimo funkcijas. Gavus rezultata jis pateikiamas lange
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void decodeButton_Click(object sender, EventArgs e)
         {
             if (_vectorFromChannel == null)
@@ -86,6 +102,12 @@ namespace Reed_Muler_Code
             decodedEncodedTextBox.Text = vector.Bits.ArrayToString();
         }
 
+        /// <summary>
+        /// Paspaudus Send mygtuka simboliu eilutes lange, simboliu eilute siunciama i uzkodavima, per kanala ir yra dekoduojama
+        /// taip pat siunciama neuzkoduota simboliu eilute. Gavus rezultata jis pateikiamas lange
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void stringEncode_Click(object sender, EventArgs e)
         {
             if (!Validate(stringRbox, stringMbox, stringErrorRateBox, stringErrorBox))
@@ -113,6 +135,11 @@ namespace Reed_Muler_Code
             stringErrorBox.Text = $"Elapsed time: {stopwatch.Elapsed}";
         }
 
+        /// <summary>
+        /// Paspaudus Upload mygtuka nuotraukos lange, atidaromas failo pasirinkimo langas
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void imageUploadButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog { Filter = "BMP|*.bmp" };
@@ -124,6 +151,12 @@ namespace Reed_Muler_Code
             uploadedImagePictureBox.Image = _picture;
         }
 
+        /// <summary>
+        /// Paspaudus Send mygtuka nuotraukos lange nuotrauka siunciama uzkoduoti, persiusti per kanala bei dekoduoti
+        /// taip pat siunciama ir neuzkoduota nuotrauka per kanala. Gavus rezultata jis pateikiamas lange
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void imageChannelButton_Click(object sender, EventArgs e)
         {
             if(_picture == null)

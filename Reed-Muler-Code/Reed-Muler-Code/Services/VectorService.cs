@@ -11,23 +11,21 @@ namespace Reed_Muler_Code.Services
     public class VectorService
     {
         /// <summary>
-        /// Encodes a vector
+        /// Uzkoduoja atsiusta vektoriu
         /// </summary>
-        /// <param name="vector">Vector bits to encode</param>
-        /// <param name="m">Parameter m value</param>
-        /// <returns>Encoded vector</returns>
-        public Vector EncodeVector(int[] vectorBits, int r, int m)
+        /// <param name="vector">Vektorius kuris bus uzkoduojamas</param>
+        /// <returns>Uzkoduotas vektorius</returns>
+        public Vector EncodeVector(Vector vector)
         {
-            Vector vector = new Vector(m, r ,vectorBits);
             return Encoder.Encode(vector);
         }
 
         /// <summary>
-        /// Sends vector through a noisy channel
+        /// Persiuncia vektoriu per triuksminga kanala
         /// </summary>
-        /// <param name="vector">Vector that will be sent through the channel</param>
-        /// <param name="mistakeProbability">Mistake probability</param>
-        /// <returns>Vector from channel and list of error positions</returns>
+        /// <param name="vector">Vektorius kuris bus siunciamas per kanala</param>
+        /// <param name="mistakeProbability">Klaidos tikimybe</param>
+        /// <returns>Persiustas per kanala vektorius ir pozicijos kuriose ivyko klaidos</returns>
         public (Vector, List<int>) SendThroughChannel(Vector vector, double mistakeProbability)
         {
             var vectorFromChannel = Channel.SendThroughNoisyChannel(vector, mistakeProbability);
@@ -37,10 +35,10 @@ namespace Reed_Muler_Code.Services
         }
 
         /// <summary>
-        /// Decodes a vector
+        /// Dekoduoja vektoriu
         /// </summary>
-        /// <param name="vector">Vector to decode</param>
-        /// <returns>Decoded vector</returns>
+        /// <param name="vector">Dekoduojamas vektorius</param>
+        /// <returns>Dekoduotas vektorius</returns>
         public Vector DecodeVector(Vector vector) => Decoder.Decode(vector);
     }
 }

@@ -12,9 +12,15 @@ namespace Reed_Muler_Code.Services
 {
     public class ImageService
     {
-        private readonly StringHandler _stringHandler = new StringHandler();
-        private readonly ImageHandler _imageHandler = new ImageHandler();
-
+        /// <summary>
+        /// Gauta nuotrauka pavercia i dvejetaine tekstine eilute, ja pavercia i vektoriu sarasa,
+        /// tuomet vektoriu sarasas uzkoduojamas, persiunciamas per kanala, ir dekoduojamas
+        /// </summary>
+        /// <param name="image">Nuotrauka su kuria bus dirbama</param>
+        /// <param name="m">M parametras naudojamas RM kode</param>
+        /// <param name="r">R parametras naudojamas RM kode</param>
+        /// <param name="errorProbability">Klaidos tikimybe</param>
+        /// <returns>Grazinama uzkoduota, per kanala persiusta ir dekoduota nuotrauka</returns>
         public Image HandlePictureWithEncoding(Image image, int m, int r, double errorProbability)
         {
             string binaryImageString = ImageHandler.ConvertImageToBinaryString(image);
@@ -41,6 +47,12 @@ namespace Reed_Muler_Code.Services
             return ImageHandler.ConvertBinaryStringToImage(header + binaryImageString);
         }
 
+        /// <summary>
+        /// Gauta nuotrauka pavercia i dvejetaine eilute ir ja persiuncia per kanala
+        /// </summary>
+        /// <param name="image">Nuotrauka su kuria bus dirbama</param>
+        /// <param name="errorProbability">Klaidos tikimybe</param>
+        /// <returns>Grazinama nuotrauka persiusta per kanala</returns>
         public Image HandlePicture(Image image, double errorProbability)
         {
             string binaryImageString = ImageHandler.ConvertImageToBinaryString(image);

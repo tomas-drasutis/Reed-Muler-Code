@@ -9,8 +9,22 @@ namespace Reed_Muler_Code.Handlers
 {
     public class StringHandler
     {
+        /// <summary>
+        /// Konvertuoja simboliu eilute i dvejetaine eilute
+        /// </summary>
+        /// <param name="message">Simboliu eilute kuri bus konvertuojama</param>
+        /// <returns>Dvejetaine simboliu eilute</returns>
         public static string ConvertStringToBinary(string message) => string.Join("", Encoding.ASCII.GetBytes(message).Select(n => Convert.ToString(n, 2).PadLeft(8, '0')));
 
+        /// <summary>
+        /// Konvertuoja dvejetaine simboliu eilute i Vektoriaus objektus 
+        /// Vektoriu ilgis apskaiciuojamas pasitelkiant k formule, jei simboliu eilute per trumpa lygiai isdalinti i vektorius
+        /// Prie jos galo pridedami nuliai
+        /// </summary>
+        /// <param name="message">Simboliu eilute kuri bus konvertuojama</param>
+        /// <param name="m">M parametras issaugomas Vektoriaus objekte</param>
+        /// <param name="r">R parametrtas issaugojamas Vektoriaus objekte</param>
+        /// <returns>Vektoriaus objektu sarasas</returns>
         public static (List<Vector>, int) ConvertBinaryStringToVectors(string message, int m, int r)
         {
             List<string> vectors = message.SplitInParts(Vector.GetExpectedVectorLength(m, r)).ToList();
@@ -20,6 +34,13 @@ namespace Reed_Muler_Code.Handlers
 
             return (vectors.Select(vector => new Vector(m, r, vector)).ToList(), appendedBits);
         }
+
+        /// <summary>
+        /// Prideda nulinius bitus prie simboliu eilutes
+        /// </summary>
+        /// <param name="message">Dvejetainiu simboliu eilute prie kurios pridedami nuliai</param>
+        /// <param name="bitsToAppend">Skaicius kiek nuliu reikia prideti</param>
+        /// <returns>Simboliu eilute su pridetais nuliais prie galo</returns>
         public static string AppendBits(string message, int bitsToAppend)
         {
             for (int i = 0; i < bitsToAppend; i++)
@@ -28,18 +49,29 @@ namespace Reed_Muler_Code.Handlers
             return message;
         }
 
+        /// <summary>
+        /// Pavercia vektoriu sarasa i dvejetaine simboliu eilute, taip pat nuimami prideti nuliniai bitai
+        /// </summary>
+        /// <param name="vectors">Vektoriu objektu sarasas</param>
+        /// <param name="appendedBits">Kiek bitu buvo prideta prie dvejetaines simboliu eilutes</param>
+        /// <returns>Dvejetaine simboliu eilute</returns>
         public static  string ConvertVectorsToBinaryString(List<Vector> vectors, int appendedBits)
         {
             string message = string.Join("", vectors.Select(x => x.Bits.ArrayToString()));
             return message.Substring(0, message.Length - appendedBits);
         }
 
-        public static string ConvertBinaryToString(string data)
+        /// <summary>
+        /// Pavercia dvejetaine simboliu eilute i tekstine simboliu eilute
+        /// </summary>
+        /// <param name="binaryString">Dvejetaine simboliu eilute</param>
+        /// <returns>Tekstine simboliu eilute</returns>
+        public static string ConvertBinaryStringToString(string binaryString)
         {
             List<byte> byteList = new List<byte>();
 
-            for (int i = 0; i < data.Length; i += 8)
-                byteList.Add(Convert.ToByte(data.Substring(i, 8), 2));
+            for (int i = 0; i < binaryString.Length; i += 8)
+                byteList.Add(Convert.ToByte(binaryString.Substring(i, 8), 2));
 
             return Encoding.ASCII.GetString(byteList.ToArray());
         }

@@ -11,14 +11,23 @@ namespace Reed_Muler_Code.Channels
         private static readonly Random _random = new Random();
 
         /// <summary>
-        /// Sends a vector through the noisy channel
+        /// Vektorius persiunciamas per triuksminga kanala.
+        /// Atsitiktinai su kazkokia tikimeybe invertuojami bitai.
         /// </summary>
-        /// <param name="vector">Vector to send</param>
-        /// <param name="mistakeProbability">How likely is a mistake to happen</param>
-        /// <returns>Vector from channel</returns>
+        /// <param name="vector">Vektorius kuris bus uzkoduojamas</param>
+        /// <param name="mistakeProbability">Klaidos tikimybe</param>
+        /// <returns>Per kanala persiustas vektorius</returns>
         public static Vector SendThroughNoisyChannel(Vector vector, double mistakeProbability) =>
             new Vector(vector.M, vector.R, vector.Bits.Select(bit => _random.Next(0, 100) < mistakeProbability * 100 ? 1 - bit : bit).ToArray());
 
+
+        /// <summary>
+        /// Simboliu eilute persiunciama per triuksminga kanala
+        /// Del greitesnio veikimo naudojamas StringBuilder
+        /// </summary>
+        /// <param name="message">Siunciama simboliu eilute</param>
+        /// <param name="mistakeProbability">Klaidos tikimybe</param>
+        /// <returns>Per kanala persiusta simboliu eilute</returns>
         public static string SendThroughNoisyChannel(string message, double mistakeProbability)
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -32,11 +41,11 @@ namespace Reed_Muler_Code.Channels
         }
 
         /// <summary>
-        /// Gets error positions of vectors before and after channel
+        /// Palyginami pradinis ir persiustas vektoriai ir surandamos klaidu pozicijos
         /// </summary>
-        /// <param name="vector">Vector before channel</param>
-        /// <param name="vectorAfterChannel">Vector after channel</param>
-        /// <returns>Error positions</returns>
+        /// <param name="vector">Pradinis vektorius</param>
+        /// <param name="vectorAfterChannel">Per kanala persiustas vektorius</param>
+        /// <returns>Klaidu poziciju sarasas</returns>
         public static List<int> GetErrorPositions(Vector vector, Vector vectorAfterChannel)
         {
             List<int> positions = new List<int>();
