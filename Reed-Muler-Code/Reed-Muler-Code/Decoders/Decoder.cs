@@ -200,10 +200,10 @@ namespace Reed_Muler_Code.Decoders
         /// <summary>
         /// Vektoriu sudetis
         /// </summary>
-        /// <param name="firstAddend"></param>
-        /// <param name="secondAddend"></param>
+        /// <param name="firstVector">Pirmas vektorius</param>
+        /// <param name="secondVector">Antras vektorius</param>
         /// <returns></returns>
-        private static List<int> AddVector(List<int> firstAddend, List<int> secondAddend) => firstAddend.Select((add, index) => (add + secondAddend[index]) % 2).ToList();
+        private static List<int> AddVector(List<int> firstVector, List<int> secondVector) => firstVector.Select((add, index) => (add + secondVector[index]) % 2).ToList();
 
        /// <summary>
        /// Suranda baituose nulines pozicijas
