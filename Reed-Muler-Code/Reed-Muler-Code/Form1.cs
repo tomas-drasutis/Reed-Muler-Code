@@ -197,6 +197,15 @@ namespace Reed_Muler_Code
             errorTextBox.Text = $"Vector length should be: {vectorLength} symbols long";
         }
 
+
+        /// <summary>
+        /// Patikrina ar duomenys ivesties laukuose tinkami
+        /// </summary>
+        /// <param name="rBox">R parametro laukelis</param>
+        /// <param name="mBox">M parametro laukelis</param>
+        /// <param name="errorRateBox">Klaidos tikimybes laukelis</param>
+        /// <param name="errorBox">Klaidos pranesimo laukelis</param>
+        /// <returns>Ar duomenys tinkami</returns>
         private bool Validate(TextBox rBox, TextBox mBox, TextBox errorRateBox, RichTextBox errorBox)
         {
             if (!Regex.IsMatch(rBox.Text, "^[1-9]{1,}$") || !Regex.IsMatch(mBox.Text, "^[1-9]{1,}$"))

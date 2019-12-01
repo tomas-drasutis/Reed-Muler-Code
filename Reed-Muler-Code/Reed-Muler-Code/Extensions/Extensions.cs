@@ -42,6 +42,21 @@ namespace Reed_Muler_Code.Extensions
         }
 
         /// <summary>
+        /// Pakelimas laipsniu teigiamu skaiciu
+        /// </summary>
+        /// <param name="number">Skaicius kuri kelsim laipsniu</param>
+        /// <param name="power">Laipsnis kuriuo kelsim</param>
+        /// <returns>Laipsninu pakeltas skaicius</returns>
+        public static int CountPositivePow(this int number, int power)
+        {
+            int result = 1;
+            for (int i = 1; i <= power; i++)
+                result *= number;
+
+            return result;
+        }
+
+        /// <summary>
         /// Pavercia skaiciu sarasa i kableliais atskirta simboliu eilute
         /// </summary>
         /// <param name="list">Skaiciu sarasas</param>

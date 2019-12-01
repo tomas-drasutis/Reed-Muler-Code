@@ -18,7 +18,7 @@ namespace UnitTests
         {
             int[][] expectedMatrix = new int[][] { new int[] { 1, 1 } };
 
-            int[][] matrix = GeneratorMatrix.GenerateMatrix(1, 0);
+            int[][] matrix = GeneratorMatrix.Generate(1, 0);
 
             PrintMatrix(matrix, "Received");
             PrintMatrix(expectedMatrix, "Expected");
@@ -31,7 +31,7 @@ namespace UnitTests
             int[][] expectedMatrix = new int[][] { new int[] { 1, 1 },
                                                    new int[] { 1, 0 }};
 
-            int[][] matrix = GeneratorMatrix.GenerateMatrix(1, 1);
+            int[][] matrix = GeneratorMatrix.Generate(1, 1);
 
             PrintMatrix(matrix, "Received");
             PrintMatrix(expectedMatrix, "Expected");
@@ -46,7 +46,7 @@ namespace UnitTests
                                                    new int[] { 1, 1, 0, 0 },
                                                    new int[] { 1, 0, 1, 0 }};
 
-            int[][] matrix = GeneratorMatrix.GenerateMatrix(2, 1);
+            int[][] matrix = GeneratorMatrix.Generate(2, 1);
 
             PrintMatrix(matrix, "Received");
             PrintMatrix(expectedMatrix, "Expected");
@@ -62,7 +62,7 @@ namespace UnitTests
                                                    new int[] { 1, 1, 0, 0, 1, 1, 0, 0 },
                                                    new int[] { 1, 0, 1, 0, 1, 0, 1, 0 }};
 
-            int[][] matrix = GeneratorMatrix.GenerateMatrix(3, 1);
+            int[][] matrix = GeneratorMatrix.Generate(3, 1);
 
             PrintMatrix(matrix, "Received");
             PrintMatrix(expectedMatrix, "Expected");
@@ -81,7 +81,7 @@ namespace UnitTests
                                                    new int[] { 1, 0, 1, 0, 0, 0, 0, 0 },
                                                    new int[] { 1, 0, 0, 0, 1, 0, 0, 0 }};
 
-            int[][] matrix = GeneratorMatrix.GenerateMatrix(3, 2);
+            int[][] matrix = GeneratorMatrix.Generate(3, 2);
 
             PrintMatrix(matrix, "Received");
             PrintMatrix(expectedMatrix, "Expected");
@@ -101,7 +101,7 @@ namespace UnitTests
                                                    new int[] { 0, 0, 0, 0, 0, 0, 1, 1 },
                                                    new int[] { 0, 0, 0, 0, 0, 0, 0, 1 }};
 
-            int[][] matrix = GeneratorMatrix.GenerateMatrix(3, 3);
+            int[][] matrix = GeneratorMatrix.Generate(3, 3);
 
             PrintMatrix(matrix, "Received");
             PrintMatrix(expectedMatrix, "Expected");
@@ -123,7 +123,7 @@ namespace UnitTests
                                                    new int[] { 1,0,1,0,0,0,0,0,1,0,1,0,0,0,0,0 },
                                                    new int[] { 1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0 }};
 
-            int[][] matrix = GeneratorMatrix.GenerateMatrix(4, 2);
+            int[][] matrix = GeneratorMatrix.Generate(4, 2);
 
             PrintMatrix(matrix, "Received");
             PrintMatrix(expectedMatrix, "Expected");
@@ -142,7 +142,7 @@ namespace UnitTests
                                                    new int[] { 1, 0, 1, 0, 0, 0, 0, 0 },
                                                    new int[] { 1, 0, 0, 0, 1, 0, 0, 0 }};
 
-            int[][] matrix = GeneratorMatrix.GenerateMatrix(2, 3);
+            int[][] matrix = GeneratorMatrix.Generate(2, 3);
 
             PrintMatrix(matrix, "Received");
             PrintMatrix(expectedMatrix, "Expected");
