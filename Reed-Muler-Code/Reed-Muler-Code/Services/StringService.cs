@@ -25,13 +25,13 @@ namespace Reed_Muler_Code.Services
             string binaryString = StringHandler.ConvertStringToBinary(message);
             (List<Vector>, int) resultTuple = StringHandler.ConvertBinaryStringToVectors(binaryString, m, r);
             List<Vector> vectorsList = resultTuple.Item1;
-            int appendedBits = resultTuple.Item2;
+            int appendedWords = resultTuple.Item2;
 
             List<Vector> encodedVectors = vectorsList.Select(vector => Encoder.Encode(vector)).ToList();
             List<Vector> encodedPassedVectors = encodedVectors.Select(vector => Channel.SendThroughNoisyChannel(vector, errorProbability)).ToList();
             List<Vector> decodedVectors = encodedPassedVectors.Select(vector => Decoder.Decode(vector)).ToList();
 
-            string decodedString = StringHandler.ConvertVectorsToBinaryString(decodedVectors, appendedBits);
+            string decodedString = StringHandler.ConvertVectorsToBinaryString(decodedVectors, appendedWords);
 
             return StringHandler.ConvertBinaryStringToString(decodedString);
         }

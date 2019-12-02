@@ -52,11 +52,11 @@
     <Compile Include="Encoders\Encoder.cs" />
     <Compile Include="Extensions\BytesCounter.cs" />
     <Compile Include="Extensions\Extensions.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="ReedMullerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ReedMullerForm.Designer.cs">
+      <DependentUpon>ReedMullerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Handlers\ImageHandler.cs" />
     <Compile Include="Handlers\StringHandler.cs" />
@@ -68,8 +68,8 @@
     <Compile Include="Services\StringService.cs" />
     <Compile Include="Services\VectorService.cs" />
     <Compile Include="Vector.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="ReedMullerForm.resx">
+      <DependentUpon>ReedMullerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

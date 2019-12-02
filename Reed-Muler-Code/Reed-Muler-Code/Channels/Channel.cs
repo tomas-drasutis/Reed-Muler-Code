@@ -18,7 +18,7 @@ namespace Reed_Muler_Code.Channels
         /// <param name="mistakeProbability">Klaidos tikimybe</param>
         /// <returns>Per kanala persiustas vektorius</returns>
         public static Vector SendThroughNoisyChannel(Vector vector, double mistakeProbability) =>
-            new Vector(vector.M, vector.R, vector.Bits.Select(bit => _random.Next(0, 100) < mistakeProbability * 100 ? 1 - bit : bit).ToArray());
+            new Vector(vector.M, vector.R, vector.Words.Select(bit => _random.Next(0, 100) < mistakeProbability * 100 ? 1 - bit : bit).ToArray());
 
 
         /// <summary>
@@ -50,8 +50,8 @@ namespace Reed_Muler_Code.Channels
         {
             List<int> positions = new List<int>();
 
-            for (int i = 0; i < vector.Bits.Length; i++)
-                if (vector.Bits[i] != vectorAfterChannel.Bits[i])
+            for (int i = 0; i < vector.Words.Length; i++)
+                if (vector.Words[i] != vectorAfterChannel.Words[i])
                     positions.Add(i + 1);
 
             return positions;

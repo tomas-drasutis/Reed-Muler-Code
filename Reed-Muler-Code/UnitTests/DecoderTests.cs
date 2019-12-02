@@ -38,8 +38,36 @@ namespace UnitTests
             var result = Decoder.Decode(noisyVector);
 
             PrintVector(expectedVector, "Expected:");
-            PrintVector(result.Bits, "Result:");
-            Assert.AreEqual(expectedVector, result.Bits);
+            PrintVector(result.Words, "Result:");
+            Assert.AreEqual(expectedVector, result.Words);
+        }
+
+        [Test]
+        public void Decode_Fails()
+        {
+            int m = 3;
+            int r = 3;
+            int[] encodedVector = new int[] { 0, 0, 0, 1, 0, 0, 0, 1 };
+            int[] channelVector = new int[] { 0, 0, 0, 1, 0, 0, 0, 0 };
+            int[] expectedVector = new int[] { 1, 0, 1, 1, 0, 0, 1, 0 };
+            int[][] generatorMatrix = new int[][] { new int[] { 1, 1, 1, 1, 1, 1, 1, 1 },
+                                                   new int[] { 1, 1, 1, 1, 0, 0, 0, 0 },
+                                                   new int[] { 1, 1, 0, 0, 1, 1, 0, 0 },
+                                                   new int[] { 1, 0, 1, 0, 1, 0, 1, 0 },
+                                                   new int[] { 1, 1, 0, 0, 0, 0, 0, 0 },
+                                                   new int[] { 1, 0, 1, 0, 0, 0, 0, 0 },
+                                                   new int[] { 1, 0, 0, 0, 1, 0, 0, 0 }};
+
+            Cache.AddGeneratorMatrix(m, r, generatorMatrix);
+            Vector noisyVector = new Vector(m, r, channelVector.ArrayToString());
+
+            var result = Decoder.Decode(noisyVector);
+
+            PrintVector(noisyVector.Words, "Noisy Vector:");
+            PrintVector(expectedVector, "Expected:");
+            PrintVector(result.Words, "Result:");
+            Console.WriteLine("Error count: " + Channel.GetErrorPositions(new Vector(m, r, encodedVector.ArrayToString()), noisyVector).Count);
+            Assert.AreEqual(expectedVector, result.Words);
         }
 
         [Test]
@@ -60,11 +88,11 @@ namespace UnitTests
 
             var result = Decoder.Decode(noisyVector);
 
-            PrintVector(noisyVector.Bits, "Noisy Vector:");
+            PrintVector(noisyVector.Words, "Noisy Vector:");
             PrintVector(expectedVector, "Expected:");
-            PrintVector(result.Bits, "Result:");
+            PrintVector(result.Words, "Result:");
             Console.WriteLine("Error count: " + Channel.GetErrorPositions(new Vector(m, r, encodedVector.ArrayToString()), noisyVector).Count);
-            Assert.AreEqual(expectedVector, result.Bits);
+            Assert.AreEqual(expectedVector, result.Words);
         }
 
         [Test]
@@ -92,11 +120,11 @@ namespace UnitTests
 
             var result = Decoder.Decode(noisyVector);
 
-            PrintVector(noisyVector.Bits, "Noisy Vector:");
+            PrintVector(noisyVector.Words, "Noisy Vector:");
             PrintVector(expectedVector, "Expected:");
-            PrintVector(result.Bits, "Result:");
+            PrintVector(result.Words, "Result:");
             Console.WriteLine("Error count: " + Channel.GetErrorPositions(new Vector(m, r, encodedVector.ArrayToString()), noisyVector).Count);
-            Assert.AreEqual(expectedVector, result.Bits);
+            Assert.AreEqual(expectedVector, result.Words);
         }
 
         private void PrintVector(int[] vector, string message)

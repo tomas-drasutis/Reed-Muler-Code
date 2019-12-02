@@ -30,8 +30,8 @@ namespace UnitTests
             var result = Encoder.Encode(new Reed_Muler_Code.Vector(m, r, vector));
 
             PrintVector(expectedVector, "Expected:");
-            PrintVector(result.Bits, "Result:");
-            Assert.AreEqual(expectedVector, result.Bits);
+            PrintVector(result.Words, "Result:");
+            Assert.AreEqual(expectedVector, result.Words);
         }
 
         private void PrintVector(int[] vector, string message)

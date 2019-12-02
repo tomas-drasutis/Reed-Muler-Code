@@ -21,13 +21,13 @@ namespace Reed_Muler_Code.Encoders
         /// <returns>Uzkoduotas vektorius</returns>
         public static Vector Encode(Vector vector)
         {
-            int[] encodedBits = Cache.GetEncodedVector(vector.M, vector.R, vector.Bits);
+            int[] encodedWords = Cache.GetEncodedVector(vector.M, vector.R, vector.Words);
 
-            if (encodedBits == null)
-                encodedBits = MatrixMultiplicator.MatrixMultiplicator.MultiplyByGeneratorMatrix(vector.Bits, GeneratorMatrix.Generate(vector.M, vector.R));
+            if (encodedWords == null)
+                encodedWords = MatrixMultiplicator.MatrixMultiplicator.MultiplyByGeneratorMatrix(vector.Words, GeneratorMatrix.Generate(vector.M, vector.R));
 
-            Cache.AddEncodedVector(vector.M, vector.R, vector.Bits, encodedBits);
-            return new Vector(vector.M, vector.R, encodedBits);
+            Cache.AddEncodedVector(vector.M, vector.R, vector.Words, encodedWords);
+            return new Vector(vector.M, vector.R, encodedWords);
         }
     }
 }

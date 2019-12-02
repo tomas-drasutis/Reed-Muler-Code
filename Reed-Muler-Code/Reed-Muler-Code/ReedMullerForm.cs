@@ -15,9 +15,9 @@ using System.Diagnostics;
 
 namespace Reed_Muler_Code
 {
-    public partial class Form1 : Form
+    public partial class ReedMullerForm : Form
     {
-        public Form1()
+        public ReedMullerForm()
         {
             InitializeComponent();
         }
@@ -29,7 +29,7 @@ namespace Reed_Muler_Code
         private static StringService _stringService = new StringService();
         private static ImageService _imageService = new ImageService();
         private int CountVectorLength(int m, int r) => m.CountCombination(r);
-        private void Form1_Load(object sender, EventArgs e)
+        private void ReedMullerForm_Load(object sender, EventArgs e)
         {
 
         }
@@ -46,16 +46,16 @@ namespace Reed_Muler_Code
 
             int r = int.Parse(RtextBox.Text);
             int m = int.Parse(MtextBox.Text);
-            int[] vectorBits = vectorTextBox.Text.StringToIntArray();
+            int[] vectorWords = vectorTextBox.Text.StringToIntArray();
             int vectorLength = CountVectorLength(m, r);
 
-            if (vectorBits.Length != vectorLength)
+            if (vectorWords.Length != vectorLength)
             {
                 errorTextBox.Text = $"Vector length should be: {vectorLength} symbols long";
                 return;
             }
 
-            _encodedVector = _vectorService.EncodeVector(new Vector(m, r, vectorBits));
+            _encodedVector = _vectorService.EncodeVector(new Vector(m, r, vectorWords));
             encodedVectorTextBox.Text = _encodedVector.ToString();
         }
 
@@ -99,7 +99,7 @@ namespace Reed_Muler_Code
             }
 
             Vector vector = _vectorService.DecodeVector(_vectorFromChannel);
-            decodedEncodedTextBox.Text = vector.Bits.ArrayToString();
+            decodedEncodedTextBox.Text = vector.Words.ArrayToString();
         }
 
         /// <summary>
@@ -124,7 +124,10 @@ namespace Reed_Muler_Code
                 return;
             }
 
-            stringErrorBox.Text = "In progress...";
+            stringErrorBox.Text = $"String will be split into vectors of length: {CountVectorLength(m, r)}";
+            stringErrorBox.Text += "\nIn progress...";
+            stringPanel.Refresh();
+
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
@@ -167,12 +170,16 @@ namespace Reed_Muler_Code
 
             if (!Validate(imageRbox, imageMbox, imageErrorRateBox, imageErrorBox))
                 return;
+
             double.TryParse(imageErrorRateBox.Text, out var errorRate);
 
             int r = int.Parse(imageRbox.Text);
             int m = int.Parse(imageMbox.Text);
 
-            imageErrorBox.Text = "In progress...";
+            imageErrorBox.Text = $"Image will be split into vectors of length: {CountVectorLength(m, r)}";
+            imageErrorBox.Text += "\nIn progress...";
+            imagePanel.Refresh();
+
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
@@ -185,6 +192,13 @@ namespace Reed_Muler_Code
             imageErrorBox.Text = $"Elapsed time: {stopwatch.Elapsed}";
         }
 
+
+        /// <summary>
+        /// Validavimo mygtukas patikrina ar ivesti tinkami m, r ir klaidos tikimybes parametrai
+        /// bei pateikia naudotojui kokio ilgo vektoriaus bus tikimasi
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void validateButton_Click(object sender, EventArgs e)
         {
             if (!Validate(RtextBox, MtextBox, errorRateBox, errorTextBox))
@@ -208,18 +222,18 @@ namespace Reed_Muler_Code
         /// <returns>Ar duomenys tinkami</returns>
         private bool Validate(TextBox rBox, TextBox mBox, TextBox errorRateBox, RichTextBox errorBox)
         {
-            if (!Regex.IsMatch(rBox.Text, "^[1-9]{1,}$") || !Regex.IsMatch(mBox.Text, "^[1-9]{1,}$"))
+            /*if (!Regex.IsMatch(rBox.Text, @"^[1-9]\d*$") || !Regex.IsMatch(mBox.Text, @"^[1-9]\d*$"))
             {
-                errorBox.Text = $"M and R have to be numeric and more than 0!";
+                errorBox.Text = $"M and R have to be numeric, more than 0.";
                 return false;
             }
-
+            */
             int r = int.Parse(rBox.Text);
             int m = int.Parse(mBox.Text);
 
-            if (r > m)
+            if (r >= m)
             {
-                errorBox.Text = $"R and M should be: R <= M";
+                errorBox.Text = $"R and M should be: R < M";
                 return false;
             }
             if (!Regex.IsMatch(errorRateBox.Text.Replace(',', '.'), "^(0)$|^([0].[0-9]{1,})|^(1)$|^(1.(0){1,})$"))

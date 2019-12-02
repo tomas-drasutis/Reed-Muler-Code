@@ -31,7 +31,7 @@ namespace Reed_Muler_Code.Services
 
             (List<Vector>, int) resultTuple = StringHandler.ConvertBinaryStringToVectors(binaryImageString, m, r);
             List<Vector> vectorsList = resultTuple.Item1;
-            int appendedBits = resultTuple.Item2;
+            int appendedWords = resultTuple.Item2;
 
             Vector[] encodedVectors = new Vector[vectorsList.Count];
             Parallel.For(0, encodedVectors.Length, i => { encodedVectors[i] = Encoder.Encode(vectorsList[i]); });
@@ -43,7 +43,7 @@ namespace Reed_Muler_Code.Services
             Vector[] decodedVectors = new Vector[encodedPassedVectors.Length];
             Parallel.For(0, decodedVectors.Length, i => { decodedVectors[i] = Decoder.Decode(encodedPassedVectors[i]); });
 
-            binaryImageString = StringHandler.ConvertVectorsToBinaryString(decodedVectors.ToList(), appendedBits);
+            binaryImageString = StringHandler.ConvertVectorsToBinaryString(decodedVectors.ToList(), appendedWords);
             return ImageHandler.ConvertBinaryStringToImage(header + binaryImageString);
         }
 

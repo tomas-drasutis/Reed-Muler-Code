@@ -1,6 +1,6 @@
 ﻿namespace Reed_Muler_Code
 {
-    partial class Form1
+    partial class ReedMullerForm
     {
         /// <summary>
         /// Required designer variable.
@@ -31,15 +31,11 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.decodedTextBox = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.decodedEncodedTextBox = new System.Windows.Forms.TextBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.errorPositionsLabel = new System.Windows.Forms.Label();
             this.errorCountLabel = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.evFromChannelBox = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -49,6 +45,7 @@
             this.vectorTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.validateButton = new System.Windows.Forms.Button();
             this.errorTextBox = new System.Windows.Forms.RichTextBox();
             this.errorRateBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -69,7 +66,7 @@
             this.panel7 = new System.Windows.Forms.Panel();
             this.stringBox = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.panel6 = new System.Windows.Forms.Panel();
+            this.stringPanel = new System.Windows.Forms.Panel();
             this.stringErrorBox = new System.Windows.Forms.RichTextBox();
             this.stringErrorRateBox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -79,10 +76,13 @@
             this.stringPassButton = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.passedImagePictureBox = new System.Windows.Forms.PictureBox();
             this.encodedDecodedImagePictureBox = new System.Windows.Forms.PictureBox();
             this.uploadedImagePictureBox = new System.Windows.Forms.PictureBox();
-            this.panel11 = new System.Windows.Forms.Panel();
+            this.imagePanel = new System.Windows.Forms.Panel();
             this.imageErrorBox = new System.Windows.Forms.RichTextBox();
             this.imageErrorRateBox = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
@@ -92,10 +92,6 @@
             this.label22 = new System.Windows.Forms.Label();
             this.imageUploadButton = new System.Windows.Forms.Button();
             this.label23 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.validateButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -106,12 +102,12 @@
             this.tabPage2.SuspendLayout();
             this.panel9.SuspendLayout();
             this.panel7.SuspendLayout();
-            this.panel6.SuspendLayout();
+            this.stringPanel.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.passedImagePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.encodedDecodedImagePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.uploadedImagePictureBox)).BeginInit();
-            this.panel11.SuspendLayout();
+            this.imagePanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -144,43 +140,25 @@
             // panel5
             // 
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel5.Controls.Add(this.decodedTextBox);
-            this.panel5.Controls.Add(this.label9);
             this.panel5.Controls.Add(this.label10);
             this.panel5.Controls.Add(this.decodedEncodedTextBox);
-            this.panel5.Location = new System.Drawing.Point(228, 318);
+            this.panel5.Location = new System.Drawing.Point(228, 301);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(619, 105);
+            this.panel5.Size = new System.Drawing.Size(616, 105);
             this.panel5.TabIndex = 13;
-            // 
-            // decodedTextBox
-            // 
-            this.decodedTextBox.Location = new System.Drawing.Point(50, 11);
-            this.decodedTextBox.Name = "decodedTextBox";
-            this.decodedTextBox.Size = new System.Drawing.Size(558, 20);
-            this.decodedTextBox.TabIndex = 9;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(7, 14);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(41, 13);
-            this.label9.TabIndex = 8;
-            this.label9.Text = "Vector:";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(7, 48);
+            this.label10.Location = new System.Drawing.Point(6, 15);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(87, 13);
+            this.label10.Size = new System.Drawing.Size(88, 13);
             this.label10.TabIndex = 7;
-            this.label10.Text = "Encoded Vector:";
+            this.label10.Text = "Decoded Vector:";
             // 
             // decodedEncodedTextBox
             // 
-            this.decodedEncodedTextBox.Location = new System.Drawing.Point(50, 64);
+            this.decodedEncodedTextBox.Location = new System.Drawing.Point(49, 46);
             this.decodedEncodedTextBox.Name = "decodedEncodedTextBox";
             this.decodedEncodedTextBox.Size = new System.Drawing.Size(558, 20);
             this.decodedEncodedTextBox.TabIndex = 7;
@@ -190,13 +168,11 @@
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.Controls.Add(this.errorPositionsLabel);
             this.panel4.Controls.Add(this.errorCountLabel);
-            this.panel4.Controls.Add(this.textBox2);
-            this.panel4.Controls.Add(this.label6);
             this.panel4.Controls.Add(this.label5);
             this.panel4.Controls.Add(this.evFromChannelBox);
             this.panel4.Location = new System.Drawing.Point(228, 175);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(616, 137);
+            this.panel4.Size = new System.Drawing.Size(616, 120);
             this.panel4.TabIndex = 12;
             // 
             // errorPositionsLabel
@@ -217,34 +193,18 @@
             this.errorCountLabel.TabIndex = 10;
             this.errorCountLabel.Text = "Error Count:";
             // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(50, 45);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(558, 20);
-            this.textBox2.TabIndex = 9;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(7, 48);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(41, 13);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "Vector:";
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 82);
+            this.label5.Location = new System.Drawing.Point(10, 40);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(87, 13);
+            this.label5.Size = new System.Drawing.Size(210, 13);
             this.label5.TabIndex = 7;
-            this.label5.Text = "Encoded Vector:";
+            this.label5.Text = "Encoded Vector Passed Through Channel:";
             // 
             // evFromChannelBox
             // 
-            this.evFromChannelBox.Location = new System.Drawing.Point(50, 98);
+            this.evFromChannelBox.Location = new System.Drawing.Point(50, 72);
             this.evFromChannelBox.Name = "evFromChannelBox";
             this.evFromChannelBox.Size = new System.Drawing.Size(558, 20);
             this.evFromChannelBox.TabIndex = 7;
@@ -320,10 +280,21 @@
             this.panel1.Size = new System.Drawing.Size(171, 559);
             this.panel1.TabIndex = 7;
             // 
+            // validateButton
+            // 
+            this.validateButton.Location = new System.Drawing.Point(6, 81);
+            this.validateButton.Name = "validateButton";
+            this.validateButton.Size = new System.Drawing.Size(162, 23);
+            this.validateButton.TabIndex = 10;
+            this.validateButton.Text = "Validate";
+            this.validateButton.UseVisualStyleBackColor = true;
+            this.validateButton.Click += new System.EventHandler(this.validateButton_Click);
+            // 
             // errorTextBox
             // 
             this.errorTextBox.Location = new System.Drawing.Point(3, 248);
             this.errorTextBox.Name = "errorTextBox";
+            this.errorTextBox.ReadOnly = true;
             this.errorTextBox.Size = new System.Drawing.Size(164, 149);
             this.errorTextBox.TabIndex = 9;
             this.errorTextBox.Text = "";
@@ -411,7 +382,7 @@
             this.tabPage2.BackColor = System.Drawing.Color.NavajoWhite;
             this.tabPage2.Controls.Add(this.panel9);
             this.tabPage2.Controls.Add(this.panel7);
-            this.tabPage2.Controls.Add(this.panel6);
+            this.tabPage2.Controls.Add(this.stringPanel);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -499,26 +470,27 @@
             this.label13.TabIndex = 6;
             this.label13.Text = "String:";
             // 
-            // panel6
+            // stringPanel
             // 
-            this.panel6.BackColor = System.Drawing.Color.IndianRed;
-            this.panel6.Controls.Add(this.stringErrorBox);
-            this.panel6.Controls.Add(this.stringErrorRateBox);
-            this.panel6.Controls.Add(this.label8);
-            this.panel6.Controls.Add(this.stringRbox);
-            this.panel6.Controls.Add(this.stringMbox);
-            this.panel6.Controls.Add(this.label11);
-            this.panel6.Controls.Add(this.stringPassButton);
-            this.panel6.Controls.Add(this.label12);
-            this.panel6.Location = new System.Drawing.Point(3, 0);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(171, 559);
-            this.panel6.TabIndex = 8;
+            this.stringPanel.BackColor = System.Drawing.Color.IndianRed;
+            this.stringPanel.Controls.Add(this.stringErrorBox);
+            this.stringPanel.Controls.Add(this.stringErrorRateBox);
+            this.stringPanel.Controls.Add(this.label8);
+            this.stringPanel.Controls.Add(this.stringRbox);
+            this.stringPanel.Controls.Add(this.stringMbox);
+            this.stringPanel.Controls.Add(this.label11);
+            this.stringPanel.Controls.Add(this.stringPassButton);
+            this.stringPanel.Controls.Add(this.label12);
+            this.stringPanel.Location = new System.Drawing.Point(3, 0);
+            this.stringPanel.Name = "stringPanel";
+            this.stringPanel.Size = new System.Drawing.Size(171, 559);
+            this.stringPanel.TabIndex = 8;
             // 
             // stringErrorBox
             // 
             this.stringErrorBox.Location = new System.Drawing.Point(3, 248);
             this.stringErrorBox.Name = "stringErrorBox";
+            this.stringErrorBox.ReadOnly = true;
             this.stringErrorBox.Size = new System.Drawing.Size(164, 149);
             this.stringErrorBox.TabIndex = 9;
             this.stringErrorBox.Text = "";
@@ -590,13 +562,40 @@
             this.tabPage3.Controls.Add(this.passedImagePictureBox);
             this.tabPage3.Controls.Add(this.encodedDecodedImagePictureBox);
             this.tabPage3.Controls.Add(this.uploadedImagePictureBox);
-            this.tabPage3.Controls.Add(this.panel11);
+            this.tabPage3.Controls.Add(this.imagePanel);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(994, 559);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Image";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(586, 6);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(36, 13);
+            this.label16.TabIndex = 15;
+            this.label16.Text = "Image";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(804, 199);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(120, 13);
+            this.label15.TabIndex = 14;
+            this.label15.Text = "Image without encoding";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(303, 199);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(81, 13);
+            this.label14.TabIndex = 13;
+            this.label14.Text = "Encoded image";
             // 
             // passedImagePictureBox
             // 
@@ -625,27 +624,28 @@
             this.uploadedImagePictureBox.TabIndex = 10;
             this.uploadedImagePictureBox.TabStop = false;
             // 
-            // panel11
+            // imagePanel
             // 
-            this.panel11.BackColor = System.Drawing.Color.IndianRed;
-            this.panel11.Controls.Add(this.imageErrorBox);
-            this.panel11.Controls.Add(this.imageErrorRateBox);
-            this.panel11.Controls.Add(this.label21);
-            this.panel11.Controls.Add(this.imageChannelButton);
-            this.panel11.Controls.Add(this.imageRbox);
-            this.panel11.Controls.Add(this.imageMbox);
-            this.panel11.Controls.Add(this.label22);
-            this.panel11.Controls.Add(this.imageUploadButton);
-            this.panel11.Controls.Add(this.label23);
-            this.panel11.Location = new System.Drawing.Point(3, 0);
-            this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(171, 559);
-            this.panel11.TabIndex = 9;
+            this.imagePanel.BackColor = System.Drawing.Color.IndianRed;
+            this.imagePanel.Controls.Add(this.imageErrorBox);
+            this.imagePanel.Controls.Add(this.imageErrorRateBox);
+            this.imagePanel.Controls.Add(this.label21);
+            this.imagePanel.Controls.Add(this.imageChannelButton);
+            this.imagePanel.Controls.Add(this.imageRbox);
+            this.imagePanel.Controls.Add(this.imageMbox);
+            this.imagePanel.Controls.Add(this.label22);
+            this.imagePanel.Controls.Add(this.imageUploadButton);
+            this.imagePanel.Controls.Add(this.label23);
+            this.imagePanel.Location = new System.Drawing.Point(3, 0);
+            this.imagePanel.Name = "imagePanel";
+            this.imagePanel.Size = new System.Drawing.Size(171, 559);
+            this.imagePanel.TabIndex = 9;
             // 
             // imageErrorBox
             // 
             this.imageErrorBox.Location = new System.Drawing.Point(3, 248);
             this.imageErrorBox.Name = "imageErrorBox";
+            this.imageErrorBox.ReadOnly = true;
             this.imageErrorBox.Size = new System.Drawing.Size(164, 149);
             this.imageErrorBox.TabIndex = 9;
             this.imageErrorBox.Text = "";
@@ -718,52 +718,15 @@
             this.label23.TabIndex = 3;
             this.label23.Text = "M:";
             // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(293, 199);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(81, 13);
-            this.label14.TabIndex = 13;
-            this.label14.Text = "Encoded image";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(801, 199);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(120, 13);
-            this.label15.TabIndex = 14;
-            this.label15.Text = "Image without encoding";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(573, 6);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(36, 13);
-            this.label16.TabIndex = 15;
-            this.label16.Text = "Image";
-            // 
-            // validateButton
-            // 
-            this.validateButton.Location = new System.Drawing.Point(6, 81);
-            this.validateButton.Name = "validateButton";
-            this.validateButton.Size = new System.Drawing.Size(162, 23);
-            this.validateButton.TabIndex = 10;
-            this.validateButton.Text = "Validate";
-            this.validateButton.UseVisualStyleBackColor = true;
-            this.validateButton.Click += new System.EventHandler(this.validateButton_Click);
-            // 
-            // Form1
+            // ReedMullerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1002, 585);
             this.Controls.Add(this.tabControl1);
-            this.Name = "Form1";
-            this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Name = "ReedMullerForm";
+            this.Text = "Reed-Muller code";
+            this.Load += new System.EventHandler(this.ReedMullerForm_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
@@ -781,15 +744,15 @@
             this.panel9.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
+            this.stringPanel.ResumeLayout(false);
+            this.stringPanel.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.passedImagePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.encodedDecodedImagePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.uploadedImagePictureBox)).EndInit();
-            this.panel11.ResumeLayout(false);
-            this.panel11.PerformLayout();
+            this.imagePanel.ResumeLayout(false);
+            this.imagePanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -810,7 +773,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox evFromChannelBox;
         private System.Windows.Forms.Panel panel3;
@@ -818,10 +780,7 @@
         private System.Windows.Forms.TextBox encodedVectorTextBox;
         private System.Windows.Forms.Button decodeButton;
         private System.Windows.Forms.Button channelButton;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.TextBox decodedTextBox;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox decodedEncodedTextBox;
         private System.Windows.Forms.Label errorPositionsLabel;
@@ -832,7 +791,7 @@
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.TextBox stringBox;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Panel stringPanel;
         private System.Windows.Forms.RichTextBox stringErrorBox;
         private System.Windows.Forms.TextBox stringErrorRateBox;
         private System.Windows.Forms.Label label8;
@@ -847,7 +806,7 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox stringDecodedBox;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.Panel imagePanel;
         private System.Windows.Forms.RichTextBox imageErrorBox;
         private System.Windows.Forms.TextBox imageErrorRateBox;
         private System.Windows.Forms.Label label21;

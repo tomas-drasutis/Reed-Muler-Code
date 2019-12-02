@@ -14,18 +14,6 @@ namespace UnitTests
         }
 
         [Test]
-        public void GenerateMatrix_M1R0_Succeeds()
-        {
-            int[][] expectedMatrix = new int[][] { new int[] { 1, 1 } };
-
-            int[][] matrix = GeneratorMatrix.Generate(1, 0);
-
-            PrintMatrix(matrix, "Received");
-            PrintMatrix(expectedMatrix, "Expected");
-            Assert.AreEqual(expectedMatrix, matrix);
-        }
-
-        [Test]
         public void GenerateMatrix_M1R1_Succeeds()
         {
             int[][] expectedMatrix = new int[][] { new int[] { 1, 1 },
@@ -88,26 +76,7 @@ namespace UnitTests
             Assert.AreEqual(expectedMatrix, matrix);
         }
 
-        [Test]
-
-        public void GenerateMatrix_M3R3_Succeeds()
-        {
-            int[][] expectedMatrix = new int[][] { new int[] { 1, 1, 1, 1, 1, 1, 1, 1 },
-                                                   new int[] { 0, 1, 0, 1, 0, 1, 0, 1 },
-                                                   new int[] { 0, 0, 1, 1, 0, 0, 1, 1 },
-                                                   new int[] { 0, 0, 0, 1, 0, 0, 0, 1 },
-                                                   new int[] { 0, 0, 0, 0, 1, 1, 1, 1 },
-                                                   new int[] { 0, 0, 0, 0, 0, 1, 0, 1 },
-                                                   new int[] { 0, 0, 0, 0, 0, 0, 1, 1 },
-                                                   new int[] { 0, 0, 0, 0, 0, 0, 0, 1 }};
-
-            int[][] matrix = GeneratorMatrix.Generate(3, 3);
-
-            PrintMatrix(matrix, "Received");
-            PrintMatrix(expectedMatrix, "Expected");
-            Assert.AreEqual(expectedMatrix, matrix);
-        }
-
+        
         [Test]
         public void GenerateMatrix_M4R2_Succeeds()
         {
@@ -134,13 +103,10 @@ namespace UnitTests
 
         public void GenerateMatrix_M2R3_Succeeds()
         {
-            int[][] expectedMatrix = new int[][] { new int[] { 1, 1, 1, 1, 1, 1, 1, 1 },
-                                                   new int[] { 1, 1, 1, 1, 0, 0, 0, 0 },
-                                                   new int[] { 1, 1, 0, 0, 1, 1, 0, 0 },
-                                                   new int[] { 1, 0, 1, 0, 1, 0, 1, 0 },
-                                                   new int[] { 1, 1, 0, 0, 0, 0, 0, 0 },
-                                                   new int[] { 1, 0, 1, 0, 0, 0, 0, 0 },
-                                                   new int[] { 1, 0, 0, 0, 1, 0, 0, 0 }};
+            int[][] expectedMatrix = new int[][] { new int[] { 1, 1, 1, 1 },
+                                                   new int[] { 1, 1, 0, 0 },
+                                                   new int[] { 1, 0, 1, 0 },
+                                                   new int[] { 1, 0, 0, 0}};
 
             int[][] matrix = GeneratorMatrix.Generate(2, 3);
 

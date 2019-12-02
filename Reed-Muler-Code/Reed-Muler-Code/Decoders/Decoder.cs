@@ -17,7 +17,7 @@ namespace Reed_Muler_Code.Decoders
         {
             int m = vector.M;
             int r = vector.R;
-            List<int> encodedVector = vector.Bits.ToList();
+            List<int> encodedVector = vector.Words.ToList();
 
             List<int> decodedVector = Decode(encodedVector, m, r);
 

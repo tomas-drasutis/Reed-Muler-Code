@@ -29,21 +29,21 @@ namespace Reed_Muler_Code.Handlers
         {
             List<string> vectors = message.SplitInParts(Vector.GetExpectedVectorLength(m, r)).ToList();
 
-            int appendedBits = Vector.GetExpectedVectorLength(m, r) - vectors.Last().Length;
-            vectors[vectors.Count - 1] = AppendBits(vectors[vectors.Count - 1], appendedBits);
+            int appendedWords = Vector.GetExpectedVectorLength(m, r) - vectors.Last().Length;
+            vectors[vectors.Count - 1] = AppendWords(vectors[vectors.Count - 1], appendedWords);
 
-            return (vectors.Select(vector => new Vector(m, r, vector)).ToList(), appendedBits);
+            return (vectors.Select(vector => new Vector(m, r, vector)).ToList(), appendedWords);
         }
 
         /// <summary>
         /// Prideda nulinius bitus prie simboliu eilutes
         /// </summary>
         /// <param name="message">Dvejetainiu simboliu eilute prie kurios pridedami nuliai</param>
-        /// <param name="bitsToAppend">Skaicius kiek nuliu reikia prideti</param>
+        /// <param name="WordsToAppend">Skaicius kiek nuliu reikia prideti</param>
         /// <returns>Simboliu eilute su pridetais nuliais prie galo</returns>
-        public static string AppendBits(string message, int bitsToAppend)
+        public static string AppendWords(string message, int WordsToAppend)
         {
-            for (int i = 0; i < bitsToAppend; i++)
+            for (int i = 0; i < WordsToAppend; i++)
                 message += "0";
 
             return message;
@@ -53,12 +53,12 @@ namespace Reed_Muler_Code.Handlers
         /// Pavercia vektoriu sarasa i dvejetaine simboliu eilute, taip pat nuimami prideti nuliniai bitai
         /// </summary>
         /// <param name="vectors">Vektoriu objektu sarasas</param>
-        /// <param name="appendedBits">Kiek bitu buvo prideta prie dvejetaines simboliu eilutes</param>
+        /// <param name="appendedWords">Kiek bitu buvo prideta prie dvejetaines simboliu eilutes</param>
         /// <returns>Dvejetaine simboliu eilute</returns>
-        public static  string ConvertVectorsToBinaryString(List<Vector> vectors, int appendedBits)
+        public static  string ConvertVectorsToBinaryString(List<Vector> vectors, int appendedWords)
         {
-            string message = string.Join("", vectors.Select(x => x.Bits.ArrayToString()));
-            return message.Substring(0, message.Length - appendedBits);
+            string message = string.Join("", vectors.Select(x => x.Words.ArrayToString()));
+            return message.Substring(0, message.Length - appendedWords);
         }
 
         /// <summary>
