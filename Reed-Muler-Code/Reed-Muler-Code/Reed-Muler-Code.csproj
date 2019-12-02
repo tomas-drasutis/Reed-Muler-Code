@@ -46,22 +46,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Channel\Channel.cs" />
-    <Compile Include="Channel\IChannel.cs" />
-    <Compile Include="Decoder\Decoder.cs" />
-    <Compile Include="Decoder\IDecoder.cs" />
-    <Compile Include="Encoder\Encoder.cs" />
-    <Compile Include="Encoder\IEncoder.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Cache.cs" />
+    <Compile Include="Channels\Channel.cs" />
+    <Compile Include="Decoders\Decoder.cs" />
+    <Compile Include="Encoders\Encoder.cs" />
+    <Compile Include="Extensions\BytesCounter.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="ReedMullerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ReedMullerForm.Designer.cs">
+      <DependentUpon>ReedMullerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Handlers\ImageHandler.cs" />
+    <Compile Include="Handlers\StringHandler.cs" />
+    <Compile Include="MatrixMultiplicator\MatrixMultiplicator.cs" />
+    <Compile Include="Matrix\GeneratorMatrix.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\IService.cs" />
-    <Compile Include="Service\Service.cs" />
+    <Compile Include="Services\ImageService.cs" />
+    <Compile Include="Services\StringService.cs" />
+    <Compile Include="Services\VectorService.cs" />
+    <Compile Include="Vector.cs" />
+    <EmbeddedResource Include="ReedMullerForm.resx">
+      <DependentUpon>ReedMullerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
